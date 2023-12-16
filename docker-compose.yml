@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  tiktok-db:
+    image: postgres:13
+    container_name: my_tiktok_app
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: vision2030
+      POSTGRES_DB: gideon
+
+volumes:
+  my_postgres_data:
