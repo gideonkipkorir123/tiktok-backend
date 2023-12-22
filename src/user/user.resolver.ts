@@ -1,6 +1,6 @@
 import { Resolver, Query, Mutation, Args, Context } from "@nestjs/graphql";
 import { UserService } from "./user.service";
-import { User } from "./dto/User.dto";
+import { User } from "../user/entities/user.entity";
 import { RegisterDto } from "src/auth/dto/Register.dto";
 import { AuthService } from "src/auth/auth.service";
 import * as GraphQLUpload from "graphql-upload/GraphQLUpload.js";
@@ -26,17 +26,13 @@ export class UserResolver {
   ) {}
 
   @Query(() => [User], { name: "users" })
-  findAll() {
-    this.prisma.user.findMany({});
+  getUsers() {
+    return this.prisma.user.findMany({});
   }
 
   @Query(() => User, { name: "user" })
-  findOne(@Args("id") id: string) {
-    return this.prisma.user.findUnique({
-      where: {
-        id,
-      },
-    });
+  getUser(@Args("id") id: string) {
+    return this.userService.findSingleUser(id);
   }
 
   @Mutation(() => RegisterResponse)

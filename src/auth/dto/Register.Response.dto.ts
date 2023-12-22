@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { ObjectType, Field } from "@nestjs/graphql";
-import { User } from "src/user/dto/User.dto";
+import { User } from "../../user/entities/user.entity";
 @ObjectType()
 export class ErrorType {
   @Field()

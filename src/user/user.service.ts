@@ -26,15 +26,23 @@ export class UserService {
     });
   }
 
-  findAll() {
-    return `This action returns all user`;
+  findAllUsers() {
+    return this.prisma.user.findMany({});
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async findSingleUser(id: string) {
+    return this.prisma.user.findUnique({
+      where: {
+        id,
+      },
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async removeSingleUser(id: string) {
+    return this.prisma.user.delete({
+      where: {
+        id,
+      },
+    });
   }
 }

@@ -2,6 +2,22 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Comment {
+  createdAt: DateTime!
+  id: String!
+  post: PostType!
+  postId: String!
+  text: String!
+  updatedAt: DateTime!
+  user: User!
+  userId: String!
+}
+
+input CreateCommentInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
 """
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
@@ -9,6 +25,12 @@ scalar DateTime
 
 type ErrorType {
   message: String!
+}
+
+type LikeType {
+  id: String!
+  postId: String!
+  userId: String!
 }
 
 input LoginDto {
@@ -22,14 +44,42 @@ type LoginResponse {
 }
 
 type Mutation {
+  createComment(createCommentInput: CreateCommentInput!): Comment!
+  createPost(text: String!, video: Upload!): PostType!
+  deletePost(id: String!): PostType!
   login(login: LoginDto!): LoginResponse!
   logout: String!
   refreshToken: String!
   register(registerInput: RegisterDto!): RegisterResponse!
+  removeComment(id: Int!): Comment!
+  updateComment(updateCommentInput: UpdateCommentInput!): Comment!
   updateUserProfile(bio: String, fullname: String, image: Upload): User!
 }
 
+type PostDetails {
+  createdAt: DateTime!
+  id: String!
+  likes: [LikeType!]
+  otherPostIds: [String!]
+  text: String!
+  user: User!
+  video: String!
+}
+
+type PostType {
+  createdAt: DateTime!
+  id: String!
+  likes: [LikeType!]
+  text: String!
+  user: User!
+  video: String!
+}
+
 type Query {
+  comment(id: Int!): Comment!
+  getPostById(id: String!): PostDetails!
+  getPosts(skip: Int! = 0, take: Int! = 1): [PostType!]!
+  getPostsByUserId(userId: String!): [PostType!]!
   user(id: String!): User!
   users: [User!]!
 }
@@ -44,6 +94,12 @@ input RegisterDto {
 type RegisterResponse {
   error: ErrorType
   user: User
+}
+
+input UpdateCommentInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
 }
 
 """The `Upload` scalar type represents a file upload."""

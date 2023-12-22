@@ -32,7 +32,7 @@ export class GraphqlAuthGuard implements CanActivate {
       console.log("PAYLOAD!", payload);
       request["user"] = payload;
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       // If token is expired, we could also check if there's a refresh token
       // and then refresh the access token here
 

@@ -89,7 +89,6 @@ export class AuthService {
     );
     res.cookie("access_token", accessToken, {
       httpOnly: true,
-      sameSite: "strict",
     });
     res.cookie("access_token", refreshToken, { httpOnly: true });
     return { user, res };
